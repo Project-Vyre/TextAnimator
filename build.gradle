@@ -285,7 +285,7 @@ unifiedPublishing {
         changelog = file("CHANGELOG.md").exists() ? file("CHANGELOG.md").text : "" // Optional, in markdown format
         releaseType = project.release_type // Optional, use "release", "beta" or "alpha"
         gameVersions = ["1.20", "1.20.1"]
-        gameLoaders = ["forge"]
+        gameLoaders = ["forge", "neoforge"]
 
         mainPublication tasks.jarJar // Declares the publicated jar
 
