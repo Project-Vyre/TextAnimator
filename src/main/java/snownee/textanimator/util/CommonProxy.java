@@ -38,7 +38,7 @@ public class CommonProxy {
 				IExtensionPoint.DisplayTest.class,
 				() -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
 		TextAnimator.init();
-		if (FMLEnvironment.dist.isClient()) {
+		if (isPhysicalClient()) {
 			TextAnimatorClient.init();
 		}
 	}
@@ -55,7 +55,7 @@ public class CommonProxy {
 		int charsEaten = i;
 		IntList boundaries = IntList.of();
 		TAStyle taStyle = (TAStyle) style;
-		boolean byWord = TextAnimatorClient.getTypewriterMode() == TypewriterMode.BY_WORD;
+		boolean byWord = isPhysicalClient() && TextAnimatorClient.getTypewriterMode() == TypewriterMode.BY_WORD;
 		if (taStyle.textanimator$getTypewriterTrack() != null) {
 			typingIndex = taStyle.textanimator$getTypewriterIndex();
 			if (typingIndex == -1 && string.length() > 1) {
@@ -164,15 +164,19 @@ public class CommonProxy {
 	}
 
 	public static Locale getLocale() {
-		if (FMLEnvironment.dist.isClient()) {
+		if (isPhysicalClient()) {
 			return ClientProxy.getLocale();
 		}
 		return Locale.getDefault();
 	}
 
 	public static void onEffectTypeRegistered(String type, Function<Params, Effect> factory) {
-		if (FMLEnvironment.dist.isClient()) {
+		if (isPhysicalClient()) {
 			ClientProxy.onEffectTypeRegistered(type, factory);
 		}
+	}
+
+	public static boolean isPhysicalClient() {
+		return FMLEnvironment.dist.isClient();
 	}
 }
