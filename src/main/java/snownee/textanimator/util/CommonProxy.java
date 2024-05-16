@@ -42,7 +42,7 @@ public class CommonProxy implements ModInitializer {
 		int charsEaten = i;
 		IntList boundaries = IntList.of();
 		TAStyle taStyle = (TAStyle) style;
-		boolean byWord = TextAnimatorClient.getTypewriterMode() == TypewriterMode.BY_WORD;
+		boolean byWord = isPhysicalClient() && TextAnimatorClient.getTypewriterMode() == TypewriterMode.BY_WORD;
 		if (taStyle.textanimator$getTypewriterTrack() != null) {
 			typingIndex = taStyle.textanimator$getTypewriterIndex();
 			if (typingIndex == -1 && string.length() > 1) {
@@ -163,5 +163,9 @@ public class CommonProxy implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		TextAnimator.init();
+	}
+
+	public static boolean isPhysicalClient() {
+		return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
 	}
 }

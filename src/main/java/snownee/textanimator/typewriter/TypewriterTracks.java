@@ -16,7 +16,7 @@ public class TypewriterTracks {
 
 	public TypewriterTrack get(Object key) {
 		try {
-			return cache.get(key, () -> new TypewriterTrack());
+			return cache.get(key, TypewriterTrack::new);
 		} catch (ExecutionException e) {
 			throw new RuntimeException(e);
 		}
