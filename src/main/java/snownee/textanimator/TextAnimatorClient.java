@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.OptionInstance;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec2;
 import snownee.textanimator.duck.TAOptions;
@@ -26,11 +25,16 @@ public class TextAnimatorClient {
 		Collections.shuffle(dirs);
 		RANDOM_DIR = dirs.toArray(Vec2[]::new);
 
-//		registerDisabledScreen(BookEditScreen.class);
+		//		registerDisabledScreen(BookEditScreen.class);
 	}
 
 	public static TextAnimationMode getTextAnimationMode() {
-		OptionInstance<TextAnimationMode> instance = ((TAOptions) Minecraft.getInstance().options).textanimator$getTextAnimation();
+		//noinspection ConstantValue https://github.com/Snownee/TextAnimator/issues/25
+		if (Minecraft.getInstance().options == null) {
+			return TextAnimationMode.ALL;
+		}
+		var instance =
+				((TAOptions) Minecraft.getInstance().options).textanimator$getTextAnimation();
 		if (instance == null) {
 			return TextAnimationMode.ALL;
 		}
@@ -38,7 +42,11 @@ public class TextAnimatorClient {
 	}
 
 	public static TypewriterMode getTypewriterMode() {
-		OptionInstance<TypewriterMode> instance = ((TAOptions) Minecraft.getInstance().options).textanimator$getTypewriterMode();
+		//noinspection ConstantValue https://github.com/Snownee/TextAnimator/issues/25
+		if (Minecraft.getInstance().options == null) {
+			return TypewriterMode.BY_CHAR;
+		}
+		var instance = ((TAOptions) Minecraft.getInstance().options).textanimator$getTypewriterMode();
 		if (instance == null) {
 			return TypewriterMode.BY_CHAR;
 		}
@@ -55,7 +63,7 @@ public class TextAnimatorClient {
 		defaultTypewriterInterval = values[9 - speed];
 	}
 
-//	public static synchronized void registerDisabledScreen(Class<?> screen) {
-//		SCREENS_DISABLED.add(screen);
-//	}
+	//	public static synchronized void registerDisabledScreen(Class<?> screen) {
+	//		SCREENS_DISABLED.add(screen);
+	//	}
 }
