@@ -5,11 +5,13 @@
 	"compatibilityLevel": "JAVA_16",
 	"refmap": "textanimator.refmap.json",
 	"mixins": [
+		"StringDecomposerAccess",
 		"StringDecomposerMixin",
 		"StyleMixin",
 		"StyleMixin$SerializerMixin"
 	],
 	"client": [
+		"client.FontAccess",
 		"client.FontMixin",
 		"client.LiteralContentsMixin",
 		"client.OptionsMixin",
