@@ -74,8 +74,8 @@ public abstract class StringRenderOutputMixin {
 		float b;
 		float g;
 		float r;
-		FontSet fontSet = this$0.getFontSet(style.getFont());
-		GlyphInfo glyphInfo = fontSet.getGlyphInfo(codepoint, this$0.filterFishyGlyphs);
+		FontSet fontSet = ((FontAccess) this$0).callGetFontSet(style.getFont());
+		GlyphInfo glyphInfo = fontSet.getGlyphInfo(codepoint, ((FontAccess) this$0).getFilterFishyGlyphs());
 		BakedGlyph bakedGlyph = style.isObfuscated() && codepoint != 32 ? fontSet.getRandomGlyph(glyphInfo) : fontSet.getGlyph(codepoint);
 		boolean bold = style.isBold();
 		float a = this.a;
@@ -120,7 +120,7 @@ public abstract class StringRenderOutputMixin {
 			a = settings.a;
 			if (a != 0) {
 				VertexConsumer vertexConsumer = this.bufferSource.getBuffer(bakedGlyph.renderType(this.mode));
-				this$0.renderChar(
+				((FontAccess) this$0).callRenderChar(
 						bakedGlyph,
 						bold,
 						style.isItalic(),

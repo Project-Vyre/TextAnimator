@@ -26,6 +26,7 @@ import snownee.textanimator.TypewriterMode;
 import snownee.textanimator.duck.TAStyle;
 import snownee.textanimator.effect.Effect;
 import snownee.textanimator.effect.params.Params;
+import snownee.textanimator.mixin.StringDecomposerAccess;
 
 public class CommonProxy implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("TextAnimator");
@@ -142,7 +143,7 @@ public class CommonProxy implements ModInitializer {
 				}
 				return false;
 			}
-			if (StringDecomposer.feedChar(curStyle, formattedCharSink, k, c)) {
+			if (StringDecomposerAccess.callFeedChar(curStyle, formattedCharSink, k, c)) {
 				continue;
 			}
 			return false;
