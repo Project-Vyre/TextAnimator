@@ -22,9 +22,12 @@ public class TypewriterEffect implements Effect {
 		if (endIndex == -1) {
 			return null;
 		}
-		Effect effect = Effect.create(text.substring(1, endIndex), true);
-		if (effect instanceof TypewriterEffect) {
-			return Pair.of((TypewriterEffect) effect, endIndex + 1);
+		try {
+			Effect effect = Effect.create(text.substring(1, endIndex), true);
+			if (effect instanceof TypewriterEffect) {
+				return Pair.of((TypewriterEffect) effect, endIndex + 1);
+			}
+		} catch (Exception ignored) {
 		}
 		return null;
 	}
