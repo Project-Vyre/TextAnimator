@@ -104,9 +104,10 @@ public class CommonProxy implements ModInitializer {
 								newEffects = effects.subList(0, effects.size() - 1);
 							}
 						} else {
-							Effect effect = Effect.create(split, false);
-							if (effect != null) {
+							try {
+								Effect effect = Effect.create(split, false);
 								newEffects = ImmutableList.<Effect>builder().addAll(effects).add(effect).build();
+							} catch (Exception ignored) {
 							}
 						}
 						if (newEffects != null) {

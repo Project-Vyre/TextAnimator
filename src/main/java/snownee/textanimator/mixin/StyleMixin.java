@@ -155,9 +155,9 @@ public class StyleMixin implements TAStyle {
 			}
 			ImmutableList.Builder<Effect> builder = ImmutableList.builder();
 			GsonHelper.getAsJsonArray(json, "ta$effects").forEach(e -> {
-				Effect effect = Effect.create(e.getAsString(), true);
-				if (effect != null) {
-					builder.add(effect);
+				try {
+					builder.add(Effect.create(e.getAsString(), true));
+				} catch (Exception ignored) {
 				}
 			});
 			((TAStyle) cir.getReturnValue()).textanimator$setEffects(builder.build());

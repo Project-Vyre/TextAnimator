@@ -1,6 +1,7 @@
 package snownee.textanimator.effect;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -10,12 +11,13 @@ import snownee.textanimator.effect.params.TypedParams;
 
 public interface Effect {
 
+	@NotNull
 	static Effect create(String[] split, boolean allowTypewriter) {
 		if (split.length == 0) {
-			return null;
+			throw new IllegalArgumentException("Empty input");
 		}
 		if (!allowTypewriter && "typewriter".equals(split[0])) {
-			return null;
+			throw new IllegalArgumentException("Typewriter effect is not allowed here");
 		}
 		Params params = EmptyParams.INSTANCE;
 		if (split.length > 1) {
@@ -40,6 +42,7 @@ public interface Effect {
 		return EffectFactory.create(split[0], params);
 	}
 
+	@NotNull
 	static Effect create(String tagContent, boolean allowTypewriter) {
 		return create(StringUtils.split(tagContent, ' '), allowTypewriter);
 	}
